@@ -1,14 +1,14 @@
 version: '3'
 services:
-  # rails app
+  # Rails App
   app:
     build:
       context: .
       dockerfile: build/Dockerfile
     tty: true
     stdin_open: true
-    environment:
-      TZ: 'Asia/Tokyo'
+    # environment:
+    #   TZ: 'Asia/Tokyo'
     volumes:
       - ./rails-app:/rails-app
     ports:
@@ -20,12 +20,12 @@ services:
         ipv4_address: 172.16.228.2
   # DB（MySQL）
   mysql:
-    image: mysql:5.6
+    image: mysql:5.7
     command: mysqld --character-set-server=utf8 --skip-character-set-client-handshake
     environment:
       MYSQL_ALLOW_EMPTY_PASSWORD: 'yes'
       MYSQL_DATABASE: sample-db
-      TZ: Asia/Tokyo
+      # TZ: Asia/Tokyo
     volumes:
       - mysql-data:/var/lib/mysql
     expose:
@@ -33,14 +33,14 @@ services:
     networks:
       app_net:
         ipv4_address: 172.16.228.3
-  # MySQL管理GUIツール
+  # MySQL Management GUI Tool
   phpmyadmin:
     image: phpmyadmin/phpmyadmin
     environment:
       - PMA_HOST=mysql
       - PMA_USER=root
     ports:
-      - 18080:80
+      - 13030:80
     depends_on:
       - mysql
     networks:
