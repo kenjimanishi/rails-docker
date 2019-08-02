@@ -4,7 +4,7 @@ RUN apt-get update -qq && apt-get -y install \
     build-essential \
     libpq-dev \
     nodejs \
-    mysql-client
+    default-mysql-client
 
 RUN mkdir /rails-app
 
